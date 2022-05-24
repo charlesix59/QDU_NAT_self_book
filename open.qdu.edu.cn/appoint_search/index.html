@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
 				var sclass=document.getElementById("sclass").value;
 				// var sdate=document.getElementById("sdate").value;
 				// var stime=document.getElementById("stime").value;
-				
+
 				//get time
 				var date = new Date();
 				var hour = date.getHours();
@@ -44,12 +44,12 @@
 					stime=hour+":00"+"-"+(hour)+":30";
 					// console.log(stime);
 				}
-				
+
 				//getdate
 				var month = date.getMonth() + 1;
 				var day = date.getDate();
 				var sdate=month+"月"+day+"日"
-				
+
 				document.getElementById("pid").innerHTML=sid;
 				document.getElementById("pclass").innerHTML=sclass;
 				document.getElementById("ptime").innerHTML=stime;
@@ -69,20 +69,20 @@
 		<div class="weui-cell__bd">
 			<p>学号</p>
 		</div>
-		<div class="weui-cell__ft" id="pid">2020203222</div>
+		<div class="weui-cell__ft" id="pid">2019204367</div>
 	</div>
 	<div class="weui-cell">
 		<div class="weui-cell__bd">
 			<p>班级</p>
 		</div>
-		<div class="weui-cell__ft" id="pclass">20新能源02</div>
+		<div class="weui-cell__ft" id="pclass">19BD01</div>
 	</div>
         <div class="weui-cells">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>预约人学号</p>
                 </div>
-                <div class="weui-cell__ft"">2020203198</div>
+                <div class="weui-cell__ft">2019204304</div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -108,12 +108,12 @@
                 </div>
                 <div class="weui-cell__ft" id="pdate">5月24日</div>
             </div>
-            
-                
+
+
                     <div class="weui-cel">
                         <div class="weui-cell__bd">
                             <div style="display: flex;align-items: center;align-content: center;justify-content: center;justify-items: center;flex-direction: column">
-                                
+
                                     <div style="font-size: 22pt;color: red" id="time">截图无效</div>
                                     <div id="qrcode_2807"
                                          class="animate__animated animate__heartBeat animate__infinite"></div>
@@ -128,7 +128,7 @@
                                         });
                                     </script>
 
-                                
+
                                 <script>
                                     function showTime() {
                                         var date = new Date();
@@ -158,10 +158,10 @@
                     <a href="/appoint_search/?docancel=true&pk=2807" class="weui-cell weui-cell_link">
                         <div class="weui-cell__bd">取消预约</div>
                     </a>
-                
-            
+
+
         </div>
-    
+
 
 <a href="/logout" class="weui-cell weui-cell_link">
     <div class="weui-cell__bd">退出登录</div>
