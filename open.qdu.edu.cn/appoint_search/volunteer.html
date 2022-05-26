@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>05月26日 核酸检测预约查询</title>
+		<link rel="stylesheet" href=../static/css/weui.min.css>
+		<link rel="stylesheet" href=../static/css/jquery-weui.min.css>
+		<script src="../../res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+		<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"
+			type="application/javascript"></script>
+		<link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/animate.css/4.1.1/animate.min.css" type="text/css"
+			rel="stylesheet" />
+		<style type="text/css">
+			.shuiyin {
+				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				pointer-events: none;
+			}
+
+			.shuiyin-item {
+				color: #999;
+				pointer-events: none;
+				display: inline-block;
+				width: 300px;
+				height: 50px;
+				line-height: 50px;
+				font-size: 20px;
+				transform: rotateZ(-45deg);
+			}
+
+			.sectionBox {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.bg-icon {
+				width: 6000px;
+				animation: 10s bgIconsShowcaseSlide infinite linear;
+				animation-fill-mode: both;
+				backface-visibility: hidden;
+				perspective: 1000;
+				z-index: 2;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				box-sizing: border-box;
+				opacity: 0.5;
+			}
+
+			.bg-icon:after {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background-position: top;
+				border-radius: inherit;
+				opacity: .1;
+				background-image: url(../static/img/qdu.png);
+				background-repeat: repeat;
+			}
+
+			@keyframes bgIconsShowcaseSlide {
+				0% {
+					transform: translateZ(0);
+				}
+
+				100% {
+					transform: translate3d(-1200px, 0, 0);
+				}
+			}
+		</style>
+		<style>
+			@keyframes moveLine {
+				0% {
+					background-position: -100px 1px, calc(100% - 1px) -100px, calc(100% + 100px) calc(100% - 1px), 1px 0px;
+				}
+
+				5% {
+					background-position: 0px 1px, calc(100% - 1px) -100px, calc(100% + 100px) calc(100% - 1px), 1px -100px;
+				}
+
+				30% {
+					background-position: 100% 1px, calc(100% - 1px) -100px, calc(100% + 100px) calc(100% - 1px), 1px -100px;
+				}
+
+				35% {
+					background-position: calc(100% + 100px) 1px, calc(100% - 1px) 0px, calc(100% + 100px) calc(100% - 1px), 1px -100px;
+				}
+
+				50% {
+					background-position: calc(100% + 100px) 1px, calc(100% - 1px) 100%, calc(100% + 100px) calc(100% - 1px), -100px -100px;
+				}
+
+				55% {
+					background-position: calc(100% + 100px) 1px, calc(100% - 1px) calc(100% + 100px), 100% calc(100% - 1px), -100px calc(100% + 100px);
+				}
+
+				80% {
+					background-position: calc(100% + 100px) 1px, calc(100% - 1px) calc(100% + 100px), 0px calc(100% - 1px), 1px calc(100% + 100px);
+				}
+
+				85% {
+					background-position: calc(100% + 100px) 1px, calc(100% - 1px) calc(100% + 100px), -100px calc(100% - 1px), 1px 100%;
+				}
+
+				100% {
+					background-position: calc(100% + 100px) 1px, calc(100% - 1px) calc(100% + 100px), -100px calc(100% - 1px), 1px 0px;
+				}
+			}
+
+			.marquee-line {
+				background-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, #ebf700 100%), linear-gradient(0deg, #f70505 0%, rgba(0, 0, 0, 0) 100%), linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, #f707bf 100%), linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, #4ef728 100%);
+				background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+				background-size: 100px 4px, 4px 100px, 100px 4px, 4px 100px;
+				background-position: -100px 1px, calc(100% - 1px) -100px, calc(100% + 100px) calc(100% - 1px), 1px 0px;
+				animation: moveLine 8s infinite linear;
+				height: calc(100% - 2px);
+				padding: 1px;
+				background-clip: content-box;
+			}
+
+			.box {
+				width: 100%;
+				box-shadow: 0 0 3px orange;
+
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box marquee-line">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>当前时段</p>
+				</div>
+				<div class="weui-cell__ft" id="ptime">10:30-11:00</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>学号</p>
+				</div>
+				<div class="weui-cell__ft" id="pid">2020203222</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>班级</p>
+				</div>
+				<div class="weui-cell__ft" id="pclass">20新能源02</div>
+			</div>
+		</div>
+		<div class="weui-cells">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>预约人学号</p>
+				</div>
+				<div class="weui-cell__ft">2020203198</div>
+			</div>
+
+
+
+
+
+
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>预约人数</p>
+				</div>
+				<div class="weui-cell__ft">29</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>预约地点</p>
+				</div>
+				<div class="weui-cell__ft">浮山校区西院体育场检测点</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>预约时间</p>
+				</div>
+				<div class="weui-cell__ft" id="btime">16:00-16:30</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>预约日期</p>
+				</div>
+				<div class="weui-cell__ft" id="pdate">5月26日</div>
+			</div>
+
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>申请原因</p>
+				</div>
+				<div class="weui-cell__ft">志愿者</div>
+			</div>
+
+
+			<div class="weui-cel">
+				<div class="weui-cell__bd">
+					<div>
+
+						<div class="shuiyin">
+							<div class="shuiyin-item">2020203222</div>
+							<div class="shuiyin-item">2020203222</div>
+							<div class="shuiyin-item">2020203222</div>
+							<div class="shuiyin-item">2020203222</div>
+							<div class="shuiyin-item">2020203222</div>
+							<div class="shuiyin-item">2020203222</div>
+							<div class="shuiyin-item">2020203222</div>
+							<div class="shuiyin-item">2020203222</div>
+
+						</div>
+						<div class="sectionBox">
+
+							<div
+								style="display: flex;align-items: center;align-content: center;justify-content: center;justify-items: center;flex-direction: column">
+								<div style="font-size: 16pt;color: red">16:00-16:30</div>
+								<div style="font-size: 22pt;color: red">志愿者</div>
+								<div id="qrcode_4045" class="animate__animated animate__wobble animate__infinite"></div>
+							</div>
+							<div class="bg-icon"></div>
+
+						</div>
+
+						<script type="text/javascript">
+							var qrcode = new QRCode(document.getElementById("qrcode_4045"), {
+								text: "qdu_open|appoint_nc|" + "4045" + "|" + "2020203222",
+								width: 256,
+								height: 256,
+								colorDark: "#36cde0",
+								colorLight: "#ffffff",
+								correctLevel: QRCode.CorrectLevel.H
+							});
+						</script>
+
+
+						<script>
+							function showTime() {
+								var date = new Date();
+
+								// 年月日
+								var year = date.getFullYear();
+								var month = date.getMonth() + 1;
+								var day = date.getDate();
+
+								// 时分秒
+								var hour = date.getHours();
+								var minute = date.getMinutes();
+								var second = date.getSeconds();
+								if (second == 0) {
+									location.reload();
+								}
+
+								// 实时显示
+								// var element = document.getElementById('time');
+								// element.innerHTML = "<div style='display: flex'>" + year + '-' + month + '-' + day + ' ' + hour + ':' +
+								// 	minute + ':' + '<div style="font-size:22pt;color:green">' + second + "</div></div>";
+							}
+							setInterval('showTime()', 1000);
+						</script>
+					</div>
+				</div>
+			</div>
+			<a href="/appoint_search/?docancel=true&pk=4045" class="weui-cell weui-cell_link">
+				<div class="weui-cell__bd">取消预约</div>
+			</a>
+
+		</div>
+		<a href="javascript:location.reload();" class="weui-cell weui-cell_link">
+			<div class="weui-cell__bd">刷新</div>
+		</a>
+		<a href="/logout" class="weui-cell weui-cell_link">
+			<div class="weui-cell__bd">退出登录</div>
+		</a>
+		<div class="weui-footer">
+			<p class="weui-footer__text">Copyright © 2018-2022 青岛大学</p>
+		</div>
+		<script>
+			var sid;
+			var sclass;
+				if (localStorage.getItem('sid')) {
+					sid = localStorage.getItem('sid');
+					sclass = localStorage.getItem('sclass');
+					setData();
+				}
+			function setData() {
+				console.log("test");
+				// var sid = document.getElementById("sid").value;
+				// var sclass = document.getElementById("sclass").value;
+				var date = new Date();
+				var hour = date.getHours();
+				var minute = date.getMinutes();
+				minute = minute > 30 ? 30 : 0;
+				var stime = "12:00";
+				if (minute == 30) {
+					stime = hour + ":30" + "-" + (hour + 1) + ":00";
+				} else {
+					stime = hour + ":00" + "-" + (hour) + ":30";
+					// console.log(stime);
+				}
+
+				//getdate
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var sdate = month + "月" + day + "日"
+
+				document.getElementById("pid").innerHTML = sid;
+				document.getElementById("pclass").innerHTML = sclass;
+				document.getElementById("ptime").innerHTML = stime;
+				document.getElementById("btime").innerHTML = stime;
+				document.getElementById("pdate").innerHTML = sdate;
+			}
+		</script>
+		<script src=../static/js/jquery.min.js></script>
+		<script src=../static/js/jquery-weui.min.js></script>
+	</body>
+</html>
