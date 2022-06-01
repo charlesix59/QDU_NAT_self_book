@@ -144,16 +144,19 @@
 			爱国 敬业 诚信 友善 <br>
 			请输入你的学号 <input type="text" id="sid" /><br>
 			请输入你的班级 <input type="text" id="sclass" /><br>
+			please enter your name <input type="text" id="sname" /><br>
 			<!-- 日期 <input type="date" id="sdate"/><br>
 		时段(请输入一个整数时间) <input type="time" id="stime" /><br> -->
 			<button onclick="getData()">提交</button>
 			<script>
 				var sid;
 				var sclass;
+				var sname;
 				window.onload=function(){
-					if(localStorage.getItem('sid')){
+					if(localStorage.getItem('sname')){
 						sid=localStorage.getItem('sid');
 						sclass=localStorage.getItem('sclass');
+						sname=localStorage.getItem('sname');
 						console.log("test");
 						setData();
 					}
@@ -161,8 +164,10 @@
 				function getData(){
 					sid = document.getElementById("sid").value;
 					sclass = document.getElementById("sclass").value;
+					sname = document.getElementById("sname").value;
 					localStorage.setItem('sid',sid);
 					localStorage.setItem('sclass',sclass);
+					localStorage.setItem('sname',sname);
 					setData();
 				}
 				function setData() {
@@ -187,6 +192,7 @@
 
 					document.getElementById("pid").innerHTML = sid;
 					document.getElementById("pclass").innerHTML = sclass;
+					document.getElementById("pname").innerHTML = sname;
 					document.getElementById("ptime").innerHTML = stime;
 					document.getElementById("btime").innerHTML = stime;
 					document.getElementById("ntime").innerHTML = stime;
@@ -214,24 +220,17 @@
 			</div>
 			<div class="weui-cell">
 				<div class="weui-cell__bd">
+					<p>姓名</p>
+				</div>
+				<div class="weui-cell__ft" id="pid">武靖一</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
 					<p>班级</p>
 				</div>
 				<div class="weui-cell__ft" id="pclass">19BD01</div>
 			</div>
 		</div>
-		<div class="weui-cells">
-			<div class="weui-cell">
-				<div class="weui-cell__bd">
-					<p>预约人学号</p>
-				</div>
-				<div class="weui-cell__ft">2019204304</div>
-			</div>
-			<div class="weui-cell">
-				<div class="weui-cell__bd">
-					<p>预约人数</p>
-				</div>
-				<div class="weui-cell__ft">29</div>
-			</div>
 			<div class="weui-cell">
 				<div class="weui-cell__bd">
 					<p>预约地点</p>
