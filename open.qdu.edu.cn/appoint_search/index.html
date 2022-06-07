@@ -190,6 +190,7 @@
 					var day = date.getDate();
 					var sdate = month + "月" + day + "日"
 
+					document.title="0"+month+"月"+(day>9?day:"0"+day)+"日 核酸检测预约查询";
 					document.getElementById("pid").innerHTML = sid;
 					document.getElementById("pclass").innerHTML = sclass;
 					document.getElementById("pname").innerHTML = sname;
